@@ -1,4 +1,13 @@
 .vs
+/node_modules
 
-./rate-repository-app/.vs
-./rate-repository-app/node_modules
+/.expo
+/.expo-shared
+/npm-debug.*
+/*.jks
+/*.p8
+/*.p12
+/*.key
+/*.mobileprovision
+/*.orig.*
+/web-build/
