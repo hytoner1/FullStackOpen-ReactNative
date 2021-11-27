@@ -10,7 +10,10 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   errorText: {
-    marginTop: 5,
+    marginLeft: 5,
+    marginTop: -3,
+    marginBottom: 5,
+    color: 'red'
   },
   inputField: {
     alignSelf: 'flex-start',
