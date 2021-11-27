@@ -70,7 +70,7 @@ const RepositoryItem = ({ item }) => {
           <Text style={styles.languageText}>{item.language}</Text>
         </View>
       </View>
-      <View style={styles.flexContainer, { flexDirection: 'row' }}>
+      <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10 }}>
         <StatsEntry itemText='Stars' itemValue={item.stargazersCount} />
         <StatsEntry itemText='Forks' itemValue={item.forksCount} />
         <StatsEntry itemText='Reviews' itemValue={item.reviewCount} />
