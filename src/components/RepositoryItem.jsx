@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
 const StatsEntry = ({ itemText, itemValue }) => {
   return (
-    <View style={styles.flexContainer, { flexFlow: 'column wrap' }}>
+    <View style={styles.flexContainer, { flexDirection: 'column' }}>
       <Text style={styles.statsTextValue}>
         {itemValue < 1000 ? (itemValue) : (Math.round(itemValue / 100) / 10 + 'k')}
       </Text>
@@ -56,8 +56,8 @@ const StatsEntry = ({ itemText, itemValue }) => {
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.flexContainer, { flexFlow: 'column wrap' }}>
-      <View style={styles.flexContainer, { flexFlow: 'row wrap' }}>
+    <View style={styles.flexContainer, { flexDirection: 'column' }}>
+      <View style={styles.flexContainer, { flexDirection: 'row' }}>
         <View>
           <Image
             style={styles.logo}
@@ -70,7 +70,7 @@ const RepositoryItem = ({ item }) => {
           <Text style={styles.languageText}>{item.language}</Text>
         </View>
       </View>
-      <View style={styles.flexContainer, { flexFlow: 'row wrap' }}>
+      <View style={styles.flexContainer, { flexDirection: 'row' }}>
         <StatsEntry itemText='Stars' itemValue={item.stargazersCount} />
         <StatsEntry itemText='Forks' itemValue={item.forksCount} />
         <StatsEntry itemText='Reviews' itemValue={item.reviewCount} />
