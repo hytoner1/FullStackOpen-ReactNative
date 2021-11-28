@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Button, Pressable } from 'react-native';
 import { Link } from 'react-router-native';
 
 import theme from '../theme';
@@ -14,13 +14,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ linkTo, text }) => {
+const AppBarTab = ({ onClick, text }) => {
   return (
-    <Link to={linkTo}>
+    <Pressable onPress={onClick} style={({ pressed }) => {
+      backgroundColor: pressed
+        ? 'rgb(210, 230, 255)'
+        : 'white'
+    }}>
       <Text style={styles.text}>
         {text}
       </Text>
-    </Link>
+    </Pressable>
   );
 };
 
