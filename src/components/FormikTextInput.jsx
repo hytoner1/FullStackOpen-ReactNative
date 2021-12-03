@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const FormikTextInput = ({ name, ...props }) => {
+const FormikTextInput = ({ name, testID, ...props }) => {
   const [field, meta, helpers] = useField(name);
   const showError = meta.touched && meta.error;
 
@@ -35,6 +35,7 @@ const FormikTextInput = ({ name, ...props }) => {
         value={field.value}
         error={showError}
         style={styles.inputField}
+        testID={testID}
         {...props}
       />
       {showError && <Text style={styles.errorText}>{meta.error}</Text>}

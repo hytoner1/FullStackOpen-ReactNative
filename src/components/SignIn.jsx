@@ -44,12 +44,12 @@ const validationSchema = yup.object().shape({
     .required('Password required'),
 });
 
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container} >
-      <FormikTextInput name='username' placeholder='Username' />
-      <FormikTextInput name='password' placeholder='Password' secureTextEntry />
-      <Pressable onPress={onSubmit} style={styles.submitButton}>
+      <FormikTextInput name='username' placeholder='Username' testID='usernameField'/>
+      <FormikTextInput name='password' placeholder='Password' secureTextEntry testID='passwordField'/>
+      <Pressable onPress={onSubmit} style={styles.submitButton} testID='submitButton'>
         <Text style={{ color: 'white' }}>
           Sign In
         </Text>
@@ -58,7 +58,7 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
-const SignInWrapper = ({ onSubmit }) => {
+export const SignInWrapper = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={initialValues}
