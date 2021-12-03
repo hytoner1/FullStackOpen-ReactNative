@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 
 import useRepositories from '../hooks/useRepositories';
 
@@ -19,23 +19,22 @@ export const RepositoryListContainer = ({ repositories }) => {
     ? repositories.edges.map((edge) => edge.node)
     : [];
 
-  const renderItem = ({ item }) => (
-    <RepositoryItem item={item} />
-  );
+  const renderItem = ({ item }) => {
+    return <RepositoryItem item={item} />;
+  };
 
-  return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
-  );
+  return <FlatList
+    data={repositoryNodes}
+    ItemSeparatorComponent={ItemSeparator}
+    renderItem={renderItem}
+    keyExtractor={item => item.id}
+  />;
 };
 
-const RepositoryList = () => {
+const RepositoryList = ({ showOnlyThisID }) => {
   const { repositories } = useRepositories();
 
+  console.log(showOnlyThisID);
   return <RepositoryListContainer repositories={repositories} />
 };
 

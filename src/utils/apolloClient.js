@@ -10,7 +10,7 @@ const createApolloClient = (authStorage) => {
   const authLink = setContext(async (_, { headers }) => {
     try {
       const accessToken = await authStorage.getAccessToken();
-      const accessToken2 = accessToken.replaceAll('"', '');
+      const accessToken2 = accessToken?.replaceAll('"', '');
       console.log(`Bearer ${accessToken2}`);
       return {
         headers: {

@@ -1,6 +1,7 @@
 import React from 'react';
+import { useHistory, useParams } from 'react-router-native';
 
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Pressable, Linking } from 'react-native';
 
 import Text from './Text';
 import theme from '../theme';
@@ -55,7 +56,11 @@ const StatsEntry = ({ itemText, itemValue, testID }) => {
 };
 
 const RepositoryItem = ({ item }) => {
-  return (
+  const history = useHistory();
+  let { id } = useParams();
+
+
+  const RepositoryItemContent = ({ withLink }) => (
     <View style={styles.flexContainer, { flexDirection: 'column' }}>
       <View style={styles.flexContainer, { flexDirection: 'row' }}>
         <View>
@@ -71,12 +76,36 @@ const RepositoryItem = ({ item }) => {
         </View>
       </View>
       <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10 }}>
-        <StatsEntry itemText='Stars' itemValue={item.stargazersCount} testID="starsCount"/>
+        <StatsEntry itemText='Stars' itemValue={item.stargazersCount} testID="starsCount" />
         <StatsEntry itemText='Forks' itemValue={item.forksCount} testID="forksCount" />
-        <StatsEntry itemText='Reviews' itemValue={item.reviewCount} testID="reviewsCount"/>
-        <StatsEntry itemText='Rating' itemValue={item.ratingAverage} testID="rating"/>
+        <StatsEntry itemText='Reviews' itemValue={item.reviewCount} testID="reviewsCount" />
+        <StatsEntry itemText='Rating' itemValue={item.ratingAverage} testID="rating" />
       </View>
+      {withLink === true && (
+        <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10, marginLeft: 10 }}>
+          <Pressable onPress={() => Linking.openURL(item.url)}>
+            <Text style={styles.languageText}>{item.url}</Text>
+          </Pressable>
+        </View>
+      )}
     </View>
+  );
+
+  if (!id) {
+    const handlePress = () => {
+      console.log('id:', item.id);
+      history.push(`/${item.id}`);
+    }
+
+    return (
+      <Pressable onPress={handlePress}>
+        <RepositoryItemContent />
+      </Pressable>
+    );
+  }
+
+  return (
+    <RepositoryItemContent withLink={true} />
   );
 };
 
