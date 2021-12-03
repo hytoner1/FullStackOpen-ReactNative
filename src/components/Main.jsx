@@ -11,6 +11,7 @@ import SignIn from './SignIn';
 import AppBar from './AppBar';
 import theme from '../theme';
 import RepositoryItem from './RepositoryItem';
+import Review from './Review';
 import useRepository from '../hooks/useRepository';
 
 
@@ -43,6 +44,9 @@ const Main = () => {
         <Switch>
           <Route path='/sign-in'>
             <SignIn />
+          </Route>
+          <Route path='/review'>
+            <Review />
           </Route>
           <Route path='/:id'>
             <SingleRepo />

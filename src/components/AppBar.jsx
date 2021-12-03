@@ -40,6 +40,10 @@ const AppBar = () => {
     history.push('/');
   };
 
+  const onClick_review = () => {
+    history.push('/review');
+  };
+
   const onClick_signIn = () => {
     history.push('/sign-in');
   };
@@ -54,6 +58,7 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal style={styles.scrollBar} >
         <AppBarTab onClick={onClick_repositories} text='Repositories' />
+        {authorizedUser && (<AppBarTab onClick={onClick_review} text='Create a Review' />)}
         {!authorizedUser && (<AppBarTab onClick={onClick_signIn} text='Sign In' />)}
         {authorizedUser && (<AppBarTab onClick={onClick_signOut} text='Sign Out' />)}
       </ScrollView>

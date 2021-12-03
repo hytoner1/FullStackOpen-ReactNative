@@ -7,6 +7,8 @@ export const GET_REPOSITORIES = gql`
         node{
           id,
           fullName,
+          name,
+          ownerName,
           description,
           language,
           ratingAverage,
@@ -54,8 +56,8 @@ export const GET_REPOSITORY = gql`
               username
             }
           }
+        }
       }
-    }
     }
   }
 `;
