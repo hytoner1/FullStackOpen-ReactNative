@@ -56,7 +56,7 @@ const SignInForm = ({ onSubmit }) => {
       </Pressable>
     </View>
   );
-}
+};
 
 const SignInWrapper = ({ onSubmit }) => {
   return (
@@ -84,7 +84,7 @@ const SignIn = () => {
     catch (e) {
       console.log('error:', e);
     }
-  }
+  };
 
   return (
     <SignInWrapper onSubmit={onSubmit} />

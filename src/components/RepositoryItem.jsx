@@ -52,7 +52,7 @@ const StatsEntry = ({ itemText, itemValue }) => {
       <Text style={styles.statsTextDescription}>{itemText}</Text>
     </View>
   );
-}
+};
 
 const RepositoryItem = ({ item }) => {
   return (
@@ -65,7 +65,7 @@ const RepositoryItem = ({ item }) => {
           />
         </View>
         <View>
-          <Text style={styles.titleText}> { item.fullName }</Text>
+          <Text style={styles.titleText}> {item.fullName}</Text>
           <Text>Description: {item.description}</Text>
           <Text style={styles.languageText}>{item.language}</Text>
         </View>
@@ -78,6 +78,6 @@ const RepositoryItem = ({ item }) => {
       </View>
     </View>
   );
-}
+};
 
 export default RepositoryItem;

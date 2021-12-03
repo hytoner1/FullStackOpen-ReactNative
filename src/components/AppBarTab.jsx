@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button, Pressable } from 'react-native';
-import { Link } from 'react-router-native';
+import { StyleSheet, Text, Pressable } from 'react-native';
 
 import theme from '../theme';
 
@@ -19,7 +18,7 @@ const AppBarTab = ({ onClick, text }) => {
     <Pressable onPress={onClick} style={({ pressed }) => {
       backgroundColor: pressed
         ? 'rgb(210, 230, 255)'
-        : 'white'
+        : 'white';
     }}>
       <Text style={styles.text}>
         {text}

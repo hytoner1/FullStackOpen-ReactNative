@@ -1,7 +1,6 @@
-import { gql, useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import useAuthStorage from './useAuthStorage';
-import AuthStorageContext from '../contexts/AuthStorageContext';
 
 import { AUTHORIZE } from '../graphql/mutations';
 
@@ -18,7 +17,7 @@ const useSignIn = () => {
     }
 
     return ret;
-  }
+  };
 
   return [signIn, result];
 };

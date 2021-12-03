@@ -27,4 +27,4 @@ export const GET_AUTHORIZED_USER = gql`
       username
     }
   }
-`
+`;
