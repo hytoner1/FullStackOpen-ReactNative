@@ -3,6 +3,8 @@ import { useHistory, useParams } from 'react-router-native';
 
 import { View, StyleSheet, Image, Pressable, Linking } from 'react-native';
 
+import ReviewList, { ItemSeparator } from './ReviewList';
+
 import Text from './Text';
 import theme from '../theme';
 
@@ -82,12 +84,21 @@ const RepositoryItem = ({ item }) => {
         <StatsEntry itemText='Rating' itemValue={item.ratingAverage} testID="rating" />
       </View>
       {withLink === true && (
-        <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10, marginLeft: 10 }}>
-          <Pressable onPress={() => Linking.openURL(item.url)}>
-            <Text style={styles.languageText}>{item.url}</Text>
-          </Pressable>
-        </View>
+        <>
+          <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10, marginLeft: 10 }}>
+            <Pressable onPress={() => Linking.openURL(item.url)}>
+              <Text style={styles.languageText}>{item.url}</Text>
+            </Pressable>
+          </View>
+
+          <ItemSeparator />
+
+          <View>
+            <ReviewList reviews={item.reviews} />
+          </View>
+        </>
       )}
+
     </View>
   );
 
