@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const StatsEntry = ({ itemText, itemValue }) => {
+const StatsEntry = ({ itemText, itemValue, testID }) => {
   return (
     <View style={styles.flexContainer, { flexDirection: 'column' }}>
-      <Text style={styles.statsTextValue}>
+      <Text style={styles.statsTextValue} testID={testID}>
         {itemValue < 1000 ? (itemValue) : (Math.round(itemValue / 100) / 10 + 'k')}
       </Text>
       <Text style={styles.statsTextDescription}>{itemText}</Text>
@@ -65,16 +65,16 @@ const RepositoryItem = ({ item }) => {
           />
         </View>
         <View>
-          <Text style={styles.titleText}> {item.fullName}</Text>
-          <Text>Description: {item.description}</Text>
-          <Text style={styles.languageText}>{item.language}</Text>
+          <Text style={styles.titleText} testID="repositoryName"> {item.fullName}</Text>
+          <Text testID="repositoryDescription">Description: {item.description}</Text>
+          <Text style={styles.languageText} testID="repositoryLanguage">{item.language}</Text>
         </View>
       </View>
       <View style={styles.flexContainer, { flexDirection: 'row', marginBottom: 10 }}>
-        <StatsEntry itemText='Stars' itemValue={item.stargazersCount} />
-        <StatsEntry itemText='Forks' itemValue={item.forksCount} />
-        <StatsEntry itemText='Reviews' itemValue={item.reviewCount} />
-        <StatsEntry itemText='Rating' itemValue={item.ratingAverage} />
+        <StatsEntry itemText='Stars' itemValue={item.stargazersCount} testID="starsCount"/>
+        <StatsEntry itemText='Forks' itemValue={item.forksCount} testID="forksCount" />
+        <StatsEntry itemText='Reviews' itemValue={item.reviewCount} testID="reviewsCount"/>
+        <StatsEntry itemText='Rating' itemValue={item.ratingAverage} testID="rating"/>
       </View>
     </View>
   );

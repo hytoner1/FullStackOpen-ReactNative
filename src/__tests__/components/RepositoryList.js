@@ -1,3 +1,9 @@
+import React, { useState } from 'react';
+import { Text, TextInput, Pressable, View } from 'react-native';
+import { render, fireEvent } from '@testing-library/react-native';
+
+import { RepositoryListContainer } from '../../components/RepositoryList';
+
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
     it('renders repository information correctly', () => {
@@ -44,9 +50,23 @@ describe('RepositoryList', () => {
         ],
       };
 
+      const { debug, getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />);
 
+      //debug();
 
+      expect(getAllByTestId('repositoryName')).toHaveLength(2);
 
+      expect(getAllByTestId('repositoryName')[0]).toHaveTextContent('jaredpalmer/formik');
+      expect(getAllByTestId('repositoryName')[1]).toHaveTextContent('async-library/react-async');
+
+      expect(getAllByTestId('repositoryDescription')[0]).toHaveTextContent('Build forms in React, without the tears');
+      expect(getAllByTestId('repositoryDescription')[1]).toHaveTextContent('Flexible promise-based React data loader');
+
+      expect(getAllByTestId('repositoryLanguage')[0]).toHaveTextContent('TypeScript');
+      expect(getAllByTestId('repositoryLanguage')[1]).toHaveTextContent('JavaScript');
+
+      expect(getAllByTestId('starsCount')[0]).toHaveTextContent('21.9k');
+      expect(getAllByTestId('starsCount')[1]).toHaveTextContent('1.8k');
     });
   });
 });
