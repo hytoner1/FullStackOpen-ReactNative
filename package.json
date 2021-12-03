@@ -8,10 +8,22 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern"
+    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*|react-router-native)"
+    ],
+    "setupFilesAfterEnv": [ "<rootDir>/setupTests.js" ]
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "dotenv": "^10.0.0",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
@@ -22,15 +34,20 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-web": "~0.13.12",
     "react-router-native": "^5.2.1",
-    "yup": "^0.32.11",
-    "@react-native-async-storage/async-storage": "~1.15.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/eslint-parser": "^7.16.3",
     "@expo/webpack-config": "^0.16.9",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-native": "^8.0.0",
     "eslint": "^8.3.0",
-    "eslint-plugin-react": "^7.27.1"
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-react": "^7.27.1",
+    "jest": "^27.4.3",
+    "jest-expo": "^43.0.1",
+    "react-test-renderer": "^16.13.1"
   },
   "private": true
 }

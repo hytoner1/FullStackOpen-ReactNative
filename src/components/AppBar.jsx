@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useApolloClient } from '@apollo/client';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -8,6 +8,7 @@ import theme from '../theme';
 import AppBarTab from './AppBarTab';
 import { useHistory } from 'react-router-native';
 import { GET_AUTHORIZED_USER } from '../graphql/queries';
+import useAuthStorage from '../hooks/useAuthStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +25,8 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const authStorage = useAuthStorage();
+  const apolloClient = useApolloClient();
   const history = useHistory();
 
   const { error, data } = useQuery(GET_AUTHORIZED_USER);
@@ -41,12 +44,18 @@ const AppBar = () => {
     history.push('/sign-in');
   };
 
+  const onClick_signOut = async () => {
+    await authStorage.removeAccessToken();
+    apolloClient.resetStore();
+    history.push("/");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal style={styles.scrollBar} >
         <AppBarTab onClick={onClick_repositories} text='Repositories' />
         {!authorizedUser && (<AppBarTab onClick={onClick_signIn} text='Sign In' />)}
-        {authorizedUser && (<AppBarTab linkTo='/sign-in' text='Sign Out' />)}
+        {authorizedUser && (<AppBarTab onClick={onClick_signOut} text='Sign Out' />)}
       </ScrollView>
     </View>
   );
