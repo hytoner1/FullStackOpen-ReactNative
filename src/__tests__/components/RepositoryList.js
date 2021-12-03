@@ -67,6 +67,15 @@ describe('RepositoryList', () => {
 
       expect(getAllByTestId('starsCount')[0]).toHaveTextContent('21.9k');
       expect(getAllByTestId('starsCount')[1]).toHaveTextContent('1.8k');
+
+      expect(getAllByTestId('forksCount')[0]).toHaveTextContent('1.6k');
+      expect(getAllByTestId('forksCount')[1]).toHaveTextContent('69');
+
+      expect(getAllByTestId('reviewsCount')[0]).toHaveTextContent('3');
+      expect(getAllByTestId('reviewsCount')[1]).toHaveTextContent('3');
+
+      expect(getAllByTestId('rating')[0]).toHaveTextContent('88');
+      expect(getAllByTestId('rating')[1]).toHaveTextContent('72');
     });
   });
 });
