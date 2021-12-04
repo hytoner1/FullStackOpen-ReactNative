@@ -54,26 +54,24 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const onEndReach = this.props.onEndReach;
-    const repositories = this.props.repositories;
+    const props = this.props;
+
+    const repositories = props.repositories;
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
       : [];
 
 
     return (
-      <View style={{ flex: 1 }}>
       <FlatList
-          data={repositoryNodes}
-          style={{ flex: 1, flexDirection: 'row' }}
+        data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => <RepositoryItem item={item} />}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderHeader}
-        onEndReached={onEndReach}
-        onEndReachedThreshold={1}
+        onEndReached={props.onEndReach}
+        onEndReachedThreshold={0.5}
         />
-      </View>
     );
   }
 }

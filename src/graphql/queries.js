@@ -26,11 +26,12 @@ export const GET_REPOSITORIES = gql`
           forksCount,
           ownerAvatarUrl,
           reviewCount
-        }
+        },
+        cursor
       }
       pageInfo {
-        endCursor
-        startCursor
+        endCursor,
+        startCursor,
         hasNextPage
       }
     }
@@ -38,10 +39,31 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_AUTHORIZED_USER = gql`
-  query {
+  query authorizedUser($includeReviews: Boolean = false) {
     authorizedUser {
       id,
-      username
+      username,
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id,
+            text,
+            rating,
+            createdAt,
+            repository {
+              name,
+              ownerName,
+              id,
+            }
+          }
+          cursor
+        }
+        pageInfo {
+          endCursor,
+          startCursor,
+          hasNextPage
+        }
+      }
     }
   }
 `;

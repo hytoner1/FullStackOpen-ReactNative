@@ -13,6 +13,7 @@ import AppBar from './AppBar';
 import theme from '../theme';
 import RepositoryItem from './RepositoryItem';
 import Review from './Review';
+import MyReviews from './MyReviews';
 import useRepository from '../hooks/useRepository';
 
 
@@ -45,6 +46,9 @@ const Main = () => {
         <Switch>
           <Route path='/review'>
             <Review />
+          </Route>
+          <Route path='/my-reviews'>
+            <MyReviews />
           </Route>
           <Route path='/sign-in'>
             <SignIn />

@@ -34,6 +34,8 @@ const AppBar = () => {
     console.log('error:', error);
   }
 
+  console.log('auth user:', data);
+
   const authorizedUser = data ? data.authorizedUser : null;
 
   const onClick_repositories = () => {
@@ -42,6 +44,10 @@ const AppBar = () => {
 
   const onClick_review = () => {
     history.push('/review');
+  };
+
+  const onClick_myReviews = () => {
+    history.push('/my-reviews');
   };
 
   const onClick_signIn = () => {
@@ -63,6 +69,7 @@ const AppBar = () => {
       <ScrollView horizontal style={styles.scrollBar} >
         <AppBarTab onClick={onClick_repositories} text='Repositories' />
         {authorizedUser && (<AppBarTab onClick={onClick_review} text='Create a Review' />)}
+        {authorizedUser && (<AppBarTab onClick={onClick_myReviews} text='My Reviews' />)}
         {!authorizedUser && (<AppBarTab onClick={onClick_signIn} text='Sign In' />)}
         {!authorizedUser && (<AppBarTab onClick={onClick_signUp} text='Sign Up' />)}
         {authorizedUser && (<AppBarTab onClick={onClick_signOut} text='Sign Out' />)}

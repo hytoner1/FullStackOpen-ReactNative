@@ -12,8 +12,7 @@ const useRepositories = (selectedOrdering, searchKeyword) => {
     searchVariable = { searchKeyword };
   }
 
-  const variables = { ...sortVariables, ...searchVariable, first: 5 };
-  console.log('vars', variables);
+  const variables = { ...sortVariables, ...searchVariable, first: 8 };
 
   const { loading, data, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
     variables,
