@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+import {
+  FlatList, View,
+  StyleSheet, Pressable,
+  SafeAreaView, TextInput
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useDebounce } from 'use-debounce';
 
 import useRepositories from '../hooks/useRepositories';
 
@@ -15,47 +20,72 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories, PickerHeader }) => {
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
+export class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    const props = this.props;
 
-  const renderItem = ({ item }) => {
-    return <RepositoryItem item={item} />;
+    return (
+      <SafeAreaView>
+        <ItemSeparator />
+        <TextInput style={{
+          margin: 5, padding: 5,
+        }}
+          placeholder='Search'
+          onChangeText={(text) => props.setSearchKeyword(text)}
+        />
+
+        <ItemSeparator />
+
+        <Picker style={{
+          margin: 5, padding: 5,
+          borderStyle: 'solid', borderWidth: 10,
+          borderColor: styles.separator.backgroundColor
+        }}
+          onValueChange={(itemValue, itemIndex) => {
+            props.setSelectedOrdering(itemValue);
+          }}>
+          <Picker.Item label="Latest" value="latest" />
+          <Picker.Item label="Highest" value="DESC" />
+          <Picker.Item label="Lowest" value="ASC" />
+        </Picker>
+        <ItemSeparator />
+      </SafeAreaView>
+    );
   };
 
-  return <FlatList
-    ListHeaderComponent={PickerHeader}
-    data={repositoryNodes}
-    ItemSeparatorComponent={ItemSeparator}
-    renderItem={renderItem}
-    keyExtractor={item => item.id}
-  />;
-};
+  render() {
+    const repositories = this.props.repositories;
+    const repositoryNodes = repositories
+      ? repositories.edges.map((edge) => edge.node)
+      : [];
+
+
+    return (
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <RepositoryItem item={item} />}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
+}
 
 const RepositoryList = () => {
   const [selectedOrdering, setSelectedOrdering] = useState('latest');
-  const { repositories } = useRepositories(selectedOrdering);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [debounceSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const PickerHeader = () => (
-    <Picker style={{
-      margin: 5, padding: 5,
-      borderStyle: 'solid', borderWidth: 10, borderColor: styles.separator.backgroundColor
-    }}
-      selectedValue={selectedOrdering}
-      onValueChange={(itemValue, itemIndex) => {
-        setSelectedOrdering(itemValue);
-
-      }}>
-      <Picker.Item label="Latest" value="latest" />
-      <Picker.Item label="Highest" value="DESC" />
-      <Picker.Item label="Lowest" value="ASC" />
-    </Picker>
-  );
+  const { repositories } = useRepositories(selectedOrdering, debounceSearchKeyword);
 
   return (
     <View>
-      <RepositoryListContainer repositories={repositories} PickerHeader={PickerHeader}/>
+      <RepositoryListContainer
+        repositories={repositories}
+        setSearchKeyword={setSearchKeyword}
+        setSelectedOrdering={setSelectedOrdering}
+      />
     </View>
   );
 };
