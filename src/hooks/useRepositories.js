@@ -12,14 +12,34 @@ const useRepositories = (selectedOrdering, searchKeyword) => {
     searchVariable = { searchKeyword };
   }
 
-  const { loading, data } = useQuery(GET_REPOSITORIES, {
-    variables: { ...sortVariables, ...searchVariable },
+  const variables = { ...sortVariables, ...searchVariable, first: 5 };
+  console.log('vars', variables);
+
+  const { loading, data, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
+    variables,
     fetchPolicy: "cache-and-network",
   });
 
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
+      },
+    });
+  };
+
   return {
-    repositories: data ? data.repositories : undefined,
-    loading
+    repositories: data?.repositories,
+    fetchMore: handleFetchMore,
+    loading,
+    ...result,
   };
 };
 

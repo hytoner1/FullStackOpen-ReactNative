@@ -54,6 +54,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
+    const onEndReach = this.props.onEndReach;
     const repositories = this.props.repositories;
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
@@ -61,13 +62,18 @@ export class RepositoryListContainer extends React.Component {
 
 
     return (
+      <View style={{ flex: 1 }}>
       <FlatList
-        data={repositoryNodes}
+          data={repositoryNodes}
+          style={{ flex: 1, flexDirection: 'row' }}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => <RepositoryItem item={item} />}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderHeader}
-      />
+        onEndReached={onEndReach}
+        onEndReachedThreshold={1}
+        />
+      </View>
     );
   }
 }
@@ -77,16 +83,20 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debounceSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories(selectedOrdering, debounceSearchKeyword);
+  const { repositories, fetchMore } = useRepositories(selectedOrdering, debounceSearchKeyword);
+
+  const onEndReach = () => {
+    console.log('end');
+    fetchMore();
+  }
 
   return (
-    <View>
-      <RepositoryListContainer
-        repositories={repositories}
-        setSearchKeyword={setSearchKeyword}
-        setSelectedOrdering={setSelectedOrdering}
-      />
-    </View>
+    <RepositoryListContainer
+      repositories={repositories}
+      setSearchKeyword={setSearchKeyword}
+      setSelectedOrdering={setSelectedOrdering}
+      onEndReach={onEndReach}
+    />
   );
 };
 
