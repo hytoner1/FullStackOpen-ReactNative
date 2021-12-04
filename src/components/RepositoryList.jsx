@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 import useRepositories from '../hooks/useRepositories';
 
@@ -33,9 +34,29 @@ export const RepositoryListContainer = ({ repositories }) => {
 
 const RepositoryList = ({ showOnlyThisID }) => {
   const { repositories } = useRepositories();
+  const [selectedOrdering, setSelectedOrdering] = useState('latest');
+
 
   console.log(showOnlyThisID);
-  return <RepositoryListContainer repositories={repositories} />
+  return (
+    <View>
+      <ItemSeparator />
+
+      <Picker
+        selectedValue={selectedOrdering}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedOrdering(itemValue)
+        }>
+        <Picker.Item label="Latest" value="latest" />
+        <Picker.Item label="Highest" value="highest" />
+        <Picker.Item label="Lowest" value="lowest" />
+      </Picker>
+
+      <ItemSeparator />
+
+      <RepositoryListContainer repositories={repositories} />
+    </View>
+  );
 };
 
 export default RepositoryList;
