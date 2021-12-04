@@ -8,6 +8,7 @@ import {
 
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import AppBar from './AppBar';
 import theme from '../theme';
 import RepositoryItem from './RepositoryItem';
@@ -42,11 +43,14 @@ const Main = () => {
       <NativeRouter>
         <AppBar />
         <Switch>
+          <Route path='/review'>
+            <Review />
+          </Route>
           <Route path='/sign-in'>
             <SignIn />
           </Route>
-          <Route path='/review'>
-            <Review />
+          <Route path='/sign-up'>
+            <SignUp />
           </Route>
           <Route path='/:id'>
             <SingleRepo />
