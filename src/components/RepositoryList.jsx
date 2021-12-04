@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, PickerHeader }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -25,6 +25,7 @@ export const RepositoryListContainer = ({ repositories }) => {
   };
 
   return <FlatList
+    ListHeaderComponent={PickerHeader}
     data={repositoryNodes}
     ItemSeparatorComponent={ItemSeparator}
     renderItem={renderItem}
@@ -32,29 +33,29 @@ export const RepositoryListContainer = ({ repositories }) => {
   />;
 };
 
-const RepositoryList = ({ showOnlyThisID }) => {
-  const { repositories } = useRepositories();
+const RepositoryList = () => {
   const [selectedOrdering, setSelectedOrdering] = useState('latest');
+  const { repositories } = useRepositories(selectedOrdering);
 
+  const PickerHeader = () => (
+    <Picker style={{
+      margin: 5, padding: 5,
+      borderStyle: 'solid', borderWidth: 10, borderColor: styles.separator.backgroundColor
+    }}
+      selectedValue={selectedOrdering}
+      onValueChange={(itemValue, itemIndex) => {
+        setSelectedOrdering(itemValue);
 
-  console.log(showOnlyThisID);
+      }}>
+      <Picker.Item label="Latest" value="latest" />
+      <Picker.Item label="Highest" value="DESC" />
+      <Picker.Item label="Lowest" value="ASC" />
+    </Picker>
+  );
+
   return (
     <View>
-      <ItemSeparator />
-
-      <Picker
-        selectedValue={selectedOrdering}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedOrdering(itemValue)
-        }>
-        <Picker.Item label="Latest" value="latest" />
-        <Picker.Item label="Highest" value="highest" />
-        <Picker.Item label="Lowest" value="lowest" />
-      </Picker>
-
-      <ItemSeparator />
-
-      <RepositoryListContainer repositories={repositories} />
+      <RepositoryListContainer repositories={repositories} PickerHeader={PickerHeader}/>
     </View>
   );
 };
