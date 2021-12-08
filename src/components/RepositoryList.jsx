@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  FlatList, View,
+  FlatList, View, Text,
   StyleSheet, Pressable,
   SafeAreaView, TextInput
 } from 'react-native';
@@ -11,10 +11,20 @@ import useRepositories from '../hooks/useRepositories';
 
 import RepositoryItem from './RepositoryItem';
 
+import theme from '../theme';
+
 const styles = StyleSheet.create({
   separator: {
     height: 10,
     backgroundColor: '#e1e4e8'
+  },
+  text: {
+    backgroundColor: theme.colors.primary,
+    color: 'white',
+    fontSize: theme.fontSizes.subheading,
+    fontWeight: theme.fontWeights.bold,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
 });
 
@@ -63,15 +73,29 @@ export class RepositoryListContainer extends React.Component {
 
 
     return (
-      <FlatList
-        data={repositoryNodes}
-        ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => <RepositoryItem item={item} />}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={this.renderHeader}
-        onEndReached={props.onEndReach}
-        onEndReachedThreshold={0.5}
+      <>
+        <FlatList
+          data={repositoryNodes}
+          ItemSeparatorComponent={ItemSeparator}
+          renderItem={({ item }) => <RepositoryItem item={item} />}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={this.renderHeader}
+          onEndReached={props.onEndReach}
+          onEndReachedThreshold={0.5}
         />
+
+        <ItemSeparator />
+
+        <Pressable onPress={props.onEndReach} style={({ pressed }) => {
+        backgroundColor: pressed
+          ? 'rgb(210, 230, 255)'
+          : 'white';
+        }}>
+          <Text style={styles.text}>
+            Load More
+          </Text>
+        </Pressable>
+      </>
     );
   }
 }

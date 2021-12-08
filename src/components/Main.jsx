@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
 const Main = () => {
   const SingleRepo = () => {
     let { id } = useParams();
-    console.log('repo ID:', id);
-
     const { repository } = useRepository(id);
 
     if (!repository) {

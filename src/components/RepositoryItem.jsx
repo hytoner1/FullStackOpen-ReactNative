@@ -104,7 +104,6 @@ const RepositoryItem = ({ item }) => {
 
   if (!id) {
     const handlePress = () => {
-      console.log('id:', item.id);
       history.push(`/${item.id}`);
     }
 

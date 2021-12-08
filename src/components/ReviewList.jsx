@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
 export const ItemSeparator = () => <View style={styles.separator} />;
 
 const ReviewList = ({ reviews }) => {
-  console.log(reviews);
   const reviewNodes = reviews
     ? reviews.edges.map((edge) => edge.node)
     : [];

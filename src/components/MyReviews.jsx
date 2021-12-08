@@ -77,8 +77,6 @@ const MyReviews = () => {
     reviewsData = data.authorizedUser.reviews.edges;
   }
 
-  console.log(reviewsData);
-
   const renderItem = ({ item }) => {
     const date = new Date(item.node.createdAt);
 

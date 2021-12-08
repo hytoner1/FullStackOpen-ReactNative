@@ -23,7 +23,6 @@ const createApolloClient = (authStorage) => {
     try {
       const accessToken = await authStorage.getAccessToken();
       const accessToken2 = accessToken?.replaceAll('"', '');
-      console.log(`Bearer ${accessToken2}`);
       return {
         headers: {
           ...headers,

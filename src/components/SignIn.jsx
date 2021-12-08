@@ -77,8 +77,6 @@ const SignIn = () => {
   const onSubmit = async ({ username, password }) => {
     try {
       const { data } = await signIn({ username, password });
-      console.log(data);
-
       history.push('/');
     }
     catch (e) {

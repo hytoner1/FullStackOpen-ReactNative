@@ -34,8 +34,6 @@ const AppBar = () => {
     console.log('error:', error);
   }
 
-  console.log('auth user:', data);
-
   const authorizedUser = data ? data.authorizedUser : null;
 
   const onClick_repositories = () => {
