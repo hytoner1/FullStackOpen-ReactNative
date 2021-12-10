@@ -16,12 +16,10 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingBottom: Constants.statusBarHeight,
     backgroundColor: theme.colors.appBar,
-    // ...
   },
   scrollBar: {
     flexDirection: 'row',
-  }
-  // ...
+  },
 });
 
 const AppBar = () => {
