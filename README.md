@@ -1,7 +1,9 @@
 # FullStackOpen-ReactNative
 ## Roni Hytonen, roni.hytonen(at)aalto.fi
 
-React native frontend for Rate Repository app, backend taken from https://github.com/fullstack-hy2020/rate-repository-api.
+Part 10 of the HY Full Stack Open MOOC.
+
+React native frontend for Rate Repository app, assumes https://github.com/fullstack-hy2020/rate-repository-api is used as the backend.
 
 Tested primarily with the web version of expro, and occassionally with Android Studio (android studio had refresh problems whenever code was updated while studio was running).
 
